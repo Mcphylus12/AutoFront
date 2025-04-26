@@ -1,5 +1,5 @@
-import { createResource, For } from "solid-js";
-import config from "./config.js";
+import { createResource, For, Match, Show } from "solid-js";
+import { useConfig } from "./ConfigProvider";
 
 const queryTableData = async (type) => {
     // const response = await fetch(`http://localhost:5000/api/table/${type}/`);
@@ -8,11 +8,13 @@ const queryTableData = async (type) => {
     return [
         {
             id: 1,
-            name: "ben"
+            name: "ben",
+            deets: "bum"
         },
         {
             id: 2,
-            name: "harry"
+            name: "harry",
+            deets: "oof"
         }
     ];
 }
@@ -20,13 +22,12 @@ const queryTableData = async (type) => {
 export default function DataTable({type})
 {
     const [tableData] = createResource(type, queryTableData);
-    const tableInformation = config[type];
+    const tableInformation = useConfig(type);
     const columns = tableInformation.properties.filter(p => p.summary);
 
     return (
         <>
             <h3>{tableInformation.displayName}</h3>
-
             <table>
                 <thead>
                     <tr>
@@ -39,7 +40,19 @@ export default function DataTable({type})
                     <For each={tableData()}>{(row) =>
                         <tr>
                             <For each={columns}>{(prop) =>
-                                <td>{row[prop.name]}</td>
+                                <td>
+                                    <Switch>
+                                        <Match when={!prop.link}>
+                                            {row[prop.name]}
+                                        </Match>
+                                        <Match when={prop.link.type == "details"}>
+                                            <a href={`/details/${type}/${row[prop.name]}`}>{row[prop.name]}</a>
+                                        </Match>
+                                        <Match when={prop.link.type == "table"}>
+                                            <a href={`/table/${type}?${prop.name}=${row[prop.name]}`}>{row[prop.name]}</a>
+                                        </Match>
+                                    </Switch>
+                                </td>
                             }</For>
                         </tr>
                     }</For> 

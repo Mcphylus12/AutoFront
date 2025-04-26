@@ -1,6 +1,5 @@
 import { Title } from "@solidjs/meta";
 import Counter from "~/components/Counter";
-import DataTable from "~/components/DataTable";
 
 export default function Home() {
   return (
@@ -15,7 +14,6 @@ export default function Home() {
         </a>{" "}
         to learn how to build SolidStart apps.
       </p>
-      <DataTable type="test" />
     </main>
   );
 }

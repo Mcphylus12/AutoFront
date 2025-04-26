@@ -3,6 +3,7 @@ import { Router } from "@solidjs/router";
 import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 import "./app.css";
+import { ConfigProvider } from "./components/ConfigProvider";
 
 export default function App() {
   return (
@@ -12,7 +13,10 @@ export default function App() {
           <Title>SolidStart - Basic</Title>
           <a href="/">Index</a>
           <a href="/about">About</a>
-          <Suspense>{props.children}</Suspense>
+          <a href="/table/test">Test Table</a>
+          <ConfigProvider>
+            <Suspense>{props.children}</Suspense>
+          </ConfigProvider>
         </MetaProvider>
       )}
     >
