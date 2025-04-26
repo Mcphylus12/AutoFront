@@ -24,4 +24,5 @@ export function ConfigProvider(props) {
 
 
 export function useConfig(type) { return useContext(ConfigContext).config.types[type]; }
+export function useRawConfig() { return useContext(ConfigContext); }
 export function useBaseUrl() { return useContext(ConfigContext).bootStrap.basepath; }

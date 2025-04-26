@@ -15,27 +15,31 @@ const queryTableData = async ({type, filters, basePath}) => {
 export default function DataTable({type})
 {
     const basePath = useBaseUrl();
-    const tableInformation = useConfig(type);
-    const columns = tableInformation.properties.filter(p => p.summary);
-    const filterDefs = tableInformation.properties.filter(p => p.filterable);
+    const tableInformation = () => useConfig(type());
+    const columns = () => tableInformation().properties.filter(p => p.summary);
+    const filterDefs = () => tableInformation().properties.filter(p => p.filterable);
 
-    const startFilters = {};
+    const startFilters = () => 
+    {
+        let obj = {}
+        for (const f of filterDefs()) {
+            obj[f.name] = "";
+        }
+        return obj
+    };
 
-    for (const f of filterDefs) {
-        startFilters[f.name] = "";
-    }
 
-    const [filters, setFilters] = createStore(startFilters);
-
-    const [tableData, { refetch }] = createResource({type, filters, basePath}, queryTableData);
+    const [filters, setFilters] = createStore(startFilters());
+    const resourceParams = () => ({type: type(), filters: filters, basePath: basePath});
+    const [tableData, { refetch }] = createResource(resourceParams, queryTableData);
 
     return (
         <>
-            <h3>{tableInformation.displayName}</h3>
-            <Show when={filterDefs.length > 0}>
+            <h3>{tableInformation().displayName}</h3>
+            <Show when={filterDefs().length > 0}>
                 <h4>Filters</h4>
                 <div class="form-columns">
-                    <For each={filterDefs}>{(f) =>
+                    <For each={filterDefs()}>{(f) =>
                         <>
                             <label>{f.displayName}</label><input oninput={(e) => setFilters(f.name, e.target.value)}/>
                         </>
@@ -47,7 +51,7 @@ export default function DataTable({type})
             <table>
                 <thead>
                     <tr>
-                        <For each={columns}>{(prop) =>
+                        <For each={columns()}>{(prop) =>
                             <th>{prop.displayName}</th>
                         }</For>
                     </tr>
@@ -55,7 +59,7 @@ export default function DataTable({type})
                 <tbody>
                     <For each={tableData()}>{(row) =>
                         <tr>
-                            <For each={columns}>{(prop) =>
+                            <For each={columns()}>{(prop) =>
                                 <td>
                                     <Switch>
                                         <Match when={!prop.link}>

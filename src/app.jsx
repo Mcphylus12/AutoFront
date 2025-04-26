@@ -14,6 +14,7 @@ export default function App() {
           <a href="/">Index</a>
           <a href="/about">About</a>
           <a href="/table/test">Test Table</a>
+          <a href="/table/secondmodel">Test Table</a>
           <ConfigProvider>
             <Suspense>{props.children}</Suspense>
           </ConfigProvider>
