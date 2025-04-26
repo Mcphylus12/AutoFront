@@ -1,33 +1,49 @@
 import { createResource, For, Match, Show } from "solid-js";
-import { useConfig } from "./ConfigProvider";
+import { useBaseUrl, useConfig } from "./ConfigProvider";
+import { createStore } from "solid-js/store";
 
-const queryTableData = async (type) => {
-    // const response = await fetch(`http://localhost:5000/api/table/${type}/`);
-    // return response.json();
-
-    return [
-        {
-            id: 1,
-            name: "ben",
-            deets: "bum"
-        },
-        {
-            id: 2,
-            name: "harry",
-            deets: "oof"
-        }
-    ];
+const queryTableData = async ({type, filters, basePath}) => {
+    const response = await fetch(`${basePath}/table/${type}`, {
+        method: "POST",
+        body: JSON.stringify({
+            filters: filters
+        })
+    });
+    return response.json();
 }
 
 export default function DataTable({type})
 {
-    const [tableData] = createResource(type, queryTableData);
+    const basePath = useBaseUrl();
     const tableInformation = useConfig(type);
     const columns = tableInformation.properties.filter(p => p.summary);
+    const filterDefs = tableInformation.properties.filter(p => p.filterable);
+
+    const startFilters = {};
+
+    for (const f of filterDefs) {
+        startFilters[f.name] = "";
+    }
+
+    const [filters, setFilters] = createStore(startFilters);
+
+    const [tableData, { refetch }] = createResource({type, filters, basePath}, queryTableData);
 
     return (
         <>
             <h3>{tableInformation.displayName}</h3>
+            <Show when={filterDefs.length > 0}>
+                <h4>Filters</h4>
+                <div class="form-columns">
+                    <For each={filterDefs}>{(f) =>
+                        <>
+                            <label>{f.displayName}</label><input oninput={(e) => setFilters(f.name, e.target.value)}/>
+                        </>
+                    }</For>
+                    <button onclick={() => refetch()}>Fetch Data</button>
+                </div>
+            </Show>
+
             <table>
                 <thead>
                     <tr>
@@ -46,10 +62,10 @@ export default function DataTable({type})
                                             {row[prop.name]}
                                         </Match>
                                         <Match when={prop.link.type == "details"}>
-                                            <a href={`/details/${type}/${row[prop.name]}`}>{row[prop.name]}</a>
+                                            <a href={`/details/${prop.link.dataType}/${row[prop.name]}`}>{row[prop.name]}</a>
                                         </Match>
                                         <Match when={prop.link.type == "table"}>
-                                            <a href={`/table/${type}?${prop.name}=${row[prop.name]}`}>{row[prop.name]}</a>
+                                            <a href={`/table/${prop.link.dataType}?${prop.link.targetField}=${row[prop.name]}`}>{row[prop.name]}</a>
                                         </Match>
                                     </Switch>
                                 </td>

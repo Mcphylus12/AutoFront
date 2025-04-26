@@ -1,34 +1,20 @@
 import { createResource, For, Match, Show, Suspense } from "solid-js";
-import { useConfig } from "./ConfigProvider.jsx";
+import { useConfig, useBaseUrl } from "./ConfigProvider.jsx";
 
-const queryDetailsData = async ({type, id}) => {
-    // const response = await fetch(`http://localhost:5000/api/table/${type}/`);
-    // return response.json();
-
-    const data = [
-        {
-            id: 1,
-            name: "ben",
-            deets: "bum"
-        },
-        {
-            id: 2,
-            name: "harry",
-            deets: "oof"
-        }
-    ];
-
-    return data.filter(i => i.id == id)[0];
+const queryDetailsData = async ({basePath, type, id}) => {
+    const response = await fetch(`${basePath}/details/${type}/${id}`);
+    return response.json();
 }
 
 export default function DataDetails({type, id}) {
-    const [details] = createResource({type, id}, queryDetailsData);
+    const basePath = useBaseUrl();
+    const [details] = createResource({basePath, type, id}, queryDetailsData);
     const tableInformation = useConfig(type);
     return (
         <>
             <h3>{tableInformation.displayName}</h3>
             <Suspense fallback={<div>Loading...</div>}>
-                <div>
+                <div class="form-columns">
                     <For each={tableInformation.properties}>{(prop) =>
                         <>
                             <div>{prop.displayName}</div>
@@ -38,10 +24,10 @@ export default function DataDetails({type, id}) {
                                         {details()?.[prop.name]}
                                     </Match>
                                     <Match when={prop.link.type == "details"}>
-                                        <a href={`/details/${type}/${details()?.[prop.name]}`}>{details()?.[prop.name]}</a>
+                                        <a href={`/details/${prop.link.dataType}/${details()?.[prop.name]}`}>{details()?.[prop.name]}</a>
                                     </Match>
                                     <Match when={prop.link.type == "table"}>
-                                        <a href={`/table/${type}?${prop.name}=${details()?.[prop.name]}`}>{details()?.[prop.name]}</a>
+                                        <a href={`/table/${prop.link.dataType}?${prop.link.targetField}=${details()?.[prop.name]}`}>{details()?.[prop.name]}</a>
                                     </Match>
                                 </Switch>
                             </div>
