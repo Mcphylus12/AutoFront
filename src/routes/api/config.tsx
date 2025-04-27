@@ -35,7 +35,26 @@ export function GET() {
                     {
                         name: "testAction",
                         displayName: "Test Action",
-                        fields: ["testField", {name: "anotherField", preset: "fieldPreset"}]
+                        fields: [
+                            {
+                                name: "testActionField",
+                                displayName: "Test Action Field",
+                                preset: "testActionPreset"
+                            },
+                        ]
+                    }
+                ],
+                tableActions: [
+                    {
+                        name: "testTableAction",
+                        displayName: "Test Action",
+                        fields: [
+                            {
+                                name: "testActionField",
+                                displayName: "Test Action Field",
+                                preset: "testActionPreset"
+                            },
+                        ]
                     }
                 ]
             },

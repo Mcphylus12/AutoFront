@@ -1,5 +1,6 @@
 import { createResource, For, Match, Show, Suspense } from "solid-js";
 import { useConfig, useBaseUrl } from "./ConfigProvider.jsx";
+import PropertyRenderer from "./PropertyRenderer.jsx";
 
 const queryDetailsData = async ({basePath, type, id}) => {
     const response = await fetch(`${basePath}/details/${type}/${id}`);
@@ -19,21 +20,12 @@ export default function DataDetails({type, id}) {
                         <>
                             <div>{prop.displayName}</div>
                             <div>
-                                <Switch>
-                                    <Match when={!prop.link}>
-                                        {details()?.[prop.name]}
-                                    </Match>
-                                    <Match when={prop.link.type == "details"}>
-                                        <a href={`/details/${prop.link.dataType}/${details()?.[prop.name]}`}>{details()?.[prop.name]}</a>
-                                    </Match>
-                                    <Match when={prop.link.type == "table"}>
-                                        <a href={`/table/${prop.link.dataType}?${prop.link.targetField}=${details()?.[prop.name]}`}>{details()?.[prop.name]}</a>
-                                    </Match>
-                                </Switch>
+                                <PropertyRenderer linkData={prop.link} value={details()?.[prop.name]} />
                             </div>
                         </>
                     }</For>
                 </div>
+                <Actions actions={tableInformation().actions} value={details()} />
             </Suspense>
         </>
     )

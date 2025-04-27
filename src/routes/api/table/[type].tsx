@@ -2,7 +2,6 @@ export async function POST({params, request}) {
     if (params.type == "test")
     {
         const body = await new Response(request.body).json();
-        console.log(JSON.stringify(body));
         const filters = body.filters;
 
         const data = [
