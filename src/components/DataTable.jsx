@@ -1,4 +1,4 @@
-import { createResource, createSignal, For, Match, Show } from "solid-js";
+import { createResource, createSignal, For, Match, onMount, Show } from "solid-js";
 import { useBaseUrl, useConfig } from "./ConfigProvider";
 import PropertyRenderer from "./PropertyRenderer";
 import Actions from "./Actions";
@@ -14,7 +14,7 @@ const queryTableData = async ({type, filters, basePath}) => {
     return response.json();
 }
 
-export default function DataTable({type})
+export default function DataTable({type, initialFilters})
 {
     const basePath = useBaseUrl();
     const tableInformation = () => useConfig(type());
@@ -22,7 +22,7 @@ export default function DataTable({type})
     const filterDefs = () => tableInformation().properties.filter(p => p.filterable);
 
 
-    const [filters, setFilters] = createSignal({});
+    const [filters, setFilters] = createSignal(initialFilters());
     const resourceParams = () => ({type: type(), filters: filters(), basePath: basePath});
     const [tableData, { refetch }] = createResource(resourceParams, queryTableData);
 
@@ -37,7 +37,7 @@ export default function DataTable({type})
             <Show when={filterDefs().length > 0}>
                 <h4>Filters</h4>
                 <div class="form-columns">
-                    <FieldsRenderer buttonText="FetchData" fieldDefinitions={filterDefs()} onSubmit={refetchData}/>
+                    <FieldsRenderer buttonText="FetchData" fieldDefinitions={filterDefs()} onSubmit={refetchData} initialData={initialFilters}/>
                 </div> 
             </Show>
             <Actions actions={() => tableInformation().tableActions} />
