@@ -1,5 +1,5 @@
 
-import { Switch } from "solid-js"
+import { Switch, Match } from "solid-js"
 
 export default function PropertyRenderer({linkData, value})
 {
@@ -7,13 +7,13 @@ export default function PropertyRenderer({linkData, value})
         <>
             <Switch>
                 <Match when={!linkData}>
-                    {value}
+                    <span>{value()}</span>
                 </Match>
                 <Match when={linkData.type == "details"}>
-                    <a href={`/details/${linkData.dataType}/${value}`}>{value}</a>
+                    <a href={`/details/${linkData.dataType}/${value()}`}>{value()}</a>
                 </Match>
                 <Match when={linkData.type == "table"}>
-                    <a href={`/table/${linkData.dataType}?${linkData.targetField}=${value}`}>{value}</a>
+                    <a href={`/table/${linkData.dataType}?${linkData.targetField}=${value()}`}>{value()}</a>
                 </Match>
             </Switch>
         </>

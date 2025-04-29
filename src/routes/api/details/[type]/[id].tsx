@@ -8,7 +8,7 @@ export function GET({params}) {
         return data.filter(i => i.id == params.id)[0];
     }
 
-    if (params.type == "secondModel")
+    if (params.type == "secondmodel")
     {
         const data = secondModelData;
     

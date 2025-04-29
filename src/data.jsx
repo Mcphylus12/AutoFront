@@ -14,11 +14,13 @@ export const testData = [
 export const secondModelData = [
     {
         id: "hello",
-        boppers: "hallo"
+        boppers: "hallo",
+        back: 1
     },
     {
         id: "oof",
-        boppers: "flumber"
+        boppers: "flumber",
+        back: 1
     }
 ]
 
@@ -88,14 +90,41 @@ export const configData = {
                     name: "id",
                     displayName: "ID",
                     summary: true,
-                    filterable: true
+                    filterable: true,
+                    link: {
+                        type: "details",
+                        dataType: "secondmodel"
+                    }
                 },
                 {
                     name: "boppers",
                     displayName: "OOF",
                     summary: true
+                },
+                {
+                    name: "back",
+                    displayName: "back",
+                    link: {
+                        type: "details",
+                        dataType: "test"
+                    }
                 }
             ]
         }
     }
 };
+
+export const actions = {
+    testTableAction: (fields, context) => {
+        return {
+            success: true,
+            message: JSON.stringify(fields) + "\n" + JSON.stringify(context)
+        }
+    },
+    testAction: (fields, context) => {
+        return {
+            success: true,
+            message: JSON.stringify(fields) + "\n" + JSON.stringify(context)
+        }
+    }
+} 

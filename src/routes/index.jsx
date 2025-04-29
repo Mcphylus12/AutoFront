@@ -13,13 +13,11 @@ export default function Home() {
           start.solidjs.com
         </a>{" "}
         to learn how to build SolidStart apps.
-        <ul>
-          <li>Action handling</li>
-          <li>Action styling</li>
-          <li>Styling</li>
-          <li>config driven root pages</li>
-        </ul>
       </p>
+      <ul>
+        <li>Styling</li>
+        <li>config driven root pages</li>
+      </ul>
     </main>
   );
 }

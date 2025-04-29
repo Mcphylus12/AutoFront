@@ -1,4 +1,4 @@
-import { createResource, createSignal, For, Match, onMount, Show } from "solid-js";
+import { createEffect, createResource, createSignal, For, Match, onMount, Show } from "solid-js";
 import { useBaseUrl, useConfig } from "./ConfigProvider";
 import PropertyRenderer from "./PropertyRenderer";
 import Actions from "./Actions";
@@ -30,17 +30,17 @@ export default function DataTable({type, initialFilters})
         setFilters(f);
         refetch();
     }
-
+    
     return (
         <>
             <h3>{tableInformation().displayName}</h3>
             <Show when={filterDefs().length > 0}>
                 <h4>Filters</h4>
                 <div class="form-columns">
-                    <FieldsRenderer buttonText="FetchData" fieldDefinitions={filterDefs()} onSubmit={refetchData} initialData={initialFilters}/>
-                </div> 
+                    <FieldsRenderer buttonText="FetchData" fieldDefinitions={filterDefs} onSubmit={refetchData} initialData={initialFilters}/>
+                </div>
             </Show>
-            <Actions actions={() => tableInformation().tableActions} />
+            <Actions actions={() => tableInformation().tableActions} type={type} />
             <table>
                 <thead>
                     <tr>
@@ -54,7 +54,7 @@ export default function DataTable({type, initialFilters})
                         <tr>
                             <For each={columns()}>{(prop) =>
                                 <td>
-                                    <PropertyRenderer linkData={prop.link} value={row[prop.name]} />
+                                    <PropertyRenderer linkData={prop.link} value={() => row[prop.name]} />
                                 </td>
                             }</For>
                         </tr>

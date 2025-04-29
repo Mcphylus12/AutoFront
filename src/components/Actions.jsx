@@ -13,7 +13,7 @@ export default function Actions({type, actions, value}) {
             method: "POST",
             body: JSON.stringify({
                 fields: fields,
-                context: value
+                context: value()
             })
         });
 
@@ -42,7 +42,7 @@ export default function Actions({type, actions, value}) {
                 <div class="modal">
                     <div>
                         <h4>{runningAction().displayName}</h4>
-                        <FieldsRenderer buttonText="Submit Action" fieldDefinitions={runningAction().fields} onSubmit={submitAction}/>
+                        <FieldsRenderer buttonText="Submit Action" fieldDefinitions={() => runningAction().fields} onSubmit={submitAction}/>
                         <button onclick={closeModal}>Close</button>
                     </div>
                 </div>
