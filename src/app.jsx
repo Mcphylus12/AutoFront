@@ -4,6 +4,7 @@ import { FileRoutes } from "@solidjs/start/router";
 import { Suspense } from "solid-js";
 import "./app.css";
 import { ConfigProvider } from "./components/ConfigProvider";
+import Routes from "./components/routes";
 
 export default function App() {
   return (
@@ -11,12 +12,15 @@ export default function App() {
       root={props => (
         <MetaProvider>
           <Title>SolidStart - Basic</Title>
-          <a href="/">Index</a>
-          <a href="/about">About</a>
-          <a href="/table/test">Test Table</a>
-          <a href="/table/secondmodel">Test Table</a>
           <ConfigProvider>
-            <Suspense>{props.children}</Suspense>
+            <>
+              <div class="nav">
+                <Routes />
+              </div>
+              <div class="main">
+                <Suspense>{props.children}</Suspense>
+              </div>
+            </>
           </ConfigProvider>
         </MetaProvider>
       )}

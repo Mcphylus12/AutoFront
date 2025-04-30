@@ -25,7 +25,7 @@ export const secondModelData = [
 ]
 
 export const configData = {
-    roots: ["test"],
+    routes: ["test"],
     types: {
         test: {
             displayName: "Test",

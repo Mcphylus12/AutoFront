@@ -35,32 +35,37 @@ export default function DataTable({type, initialFilters})
         <>
             <h3>{tableInformation().displayName}</h3>
             <Show when={filterDefs().length > 0}>
-                <h4>Filters</h4>
-                <div class="form-columns">
-                    <FieldsRenderer buttonText="FetchData" fieldDefinitions={filterDefs} onSubmit={refetchData} initialData={initialFilters}/>
+                <div>
+                    <h4>Filters</h4>
+                    <div class="form-columns">
+                        <FieldsRenderer buttonText="FetchData" fieldDefinitions={filterDefs} onSubmit={refetchData} initialData={initialFilters}/>
+                    </div>
                 </div>
             </Show>
             <Actions actions={() => tableInformation().tableActions} type={type} />
-            <table>
-                <thead>
-                    <tr>
-                        <For each={columns()}>{(prop) =>
-                            <th>{prop.displayName}</th>
-                        }</For>
-                    </tr>
-                </thead>
-                <tbody>
-                    <For each={tableData()}>{(row) =>
+            <div>
+                <h4>Data</h4>
+                <table>
+                    <thead>
                         <tr>
                             <For each={columns()}>{(prop) =>
-                                <td>
-                                    <PropertyRenderer linkData={prop.link} value={() => row[prop.name]} />
-                                </td>
+                                <th>{prop.displayName}</th>
                             }</For>
                         </tr>
-                    }</For> 
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <For each={tableData()}>{(row) =>
+                            <tr>
+                                <For each={columns()}>{(prop) =>
+                                    <td>
+                                        <PropertyRenderer linkData={prop.link} value={() => row[prop.name]} />
+                                    </td>
+                                }</For>
+                            </tr>
+                        }</For> 
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }

@@ -16,7 +16,6 @@ export default function Home() {
       </p>
       <ul>
         <li>Styling</li>
-        <li>config driven root pages</li>
       </ul>
     </main>
   );

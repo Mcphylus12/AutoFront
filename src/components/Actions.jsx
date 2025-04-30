@@ -13,7 +13,7 @@ export default function Actions({type, actions, value}) {
             method: "POST",
             body: JSON.stringify({
                 fields: fields,
-                context: value()
+                context: value
             })
         });
 
@@ -29,7 +29,7 @@ export default function Actions({type, actions, value}) {
     }
 
     return (
-        <>
+        <div>
             <Show when={actions()}>
                 <h4>Actions</h4>
                 <For each={actions()}>{(a) =>
@@ -42,8 +42,10 @@ export default function Actions({type, actions, value}) {
                 <div class="modal">
                     <div>
                         <h4>{runningAction().displayName}</h4>
-                        <FieldsRenderer buttonText="Submit Action" fieldDefinitions={() => runningAction().fields} onSubmit={submitAction}/>
-                        <button onclick={closeModal}>Close</button>
+                        <div class="form-columns">
+                            <FieldsRenderer buttonText="Submit Action" fieldDefinitions={() => runningAction().fields} onSubmit={submitAction}/>
+                            <button onclick={closeModal}>Close</button>
+                        </div>
                     </div>
                 </div>
             </Show>
@@ -56,6 +58,6 @@ export default function Actions({type, actions, value}) {
                     </div>
                 </div>
             </Show>
-        </>
+        </div>
     )
 }
