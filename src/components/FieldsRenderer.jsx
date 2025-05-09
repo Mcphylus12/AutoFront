@@ -18,20 +18,20 @@ export default function FieldsRenderer({fieldDefinitions, onSubmit, buttonText, 
         return obj
     };
 
-    const [filters, setFilters] = createStore(startFilters());
+    const [filters, setFilters] = createStore({ root: startFilters()});
 
     createEffect(() => {
-        setFilters(s => startFilters());
-    })
+        setFilters('root', startFilters());
+    });
 
     return (
         <>
             <For each={fieldDefinitions()}>{(f) =>
                 <>
-                    <label>{f.displayName}</label><input value={filters[f.name]} oninput={(e) => setFilters(f.name, e.target.value)}/>
+                    <label>{f.displayName}</label><input value={filters.root[f.name]} oninput={(e) => setFilters('root', f.name, e.target.value)}/>
                 </>
             }</For>
-            <button onclick={() => onSubmit(filters)}>{buttonText}</button>
+            <button onclick={() => onSubmit(filters.root)}>{buttonText}</button>
         </>
     )
 }

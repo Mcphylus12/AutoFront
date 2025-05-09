@@ -16,3 +16,4 @@
 - Sorting
 - Custom pages that load iframes
 - Home page
+- Swagger yaml

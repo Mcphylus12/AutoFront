@@ -14,21 +14,22 @@ const queryTableData = async ({type, filters, basePath}) => {
     return response.json();
 }
 
-export default function DataTable({type, initialFilters})
+export default function DataTable({type, initialFilters, setQueryParam})
 {
     const basePath = useBaseUrl();
     const tableInformation = () => useConfig(type());
     const columns = () => tableInformation().properties.filter(p => p.summary);
     const filterDefs = () => tableInformation().properties.filter(p => p.filterable);
 
-
-    const [filters, setFilters] = createSignal(initialFilters());
-    const resourceParams = () => ({type: type(), filters: filters(), basePath: basePath});
+    const resourceParams = () => ({type: type(), filters: initialFilters(), basePath: basePath});
     const [tableData, { refetch }] = createResource(resourceParams, queryTableData);
 
     const refetchData = (f) => {
-        setFilters(f);
-        refetch();
+        setQueryParam(f);
+
+        setTimeout(() => {
+            refetch();
+        }, 0);
     }
     
     return (
