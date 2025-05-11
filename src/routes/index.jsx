@@ -14,9 +14,6 @@ export default function Home() {
         </a>{" "}
         to learn how to build SolidStart apps.
       </p>
-      <ul>
-        <li>Styling</li>
-      </ul>
     </main>
   );
 }
