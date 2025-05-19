@@ -34,18 +34,20 @@ export default function DataTable({type, initialFilters, setQueryParam})
     
     return (
         <>
-            <h3>{tableInformation().displayName}</h3>
-            <Show when={filterDefs().length > 0}>
-                <div>
-                    <h4>Filters</h4>
-                    <div class="form-columns">
-                        <FieldsRenderer buttonText="FetchData" fieldDefinitions={filterDefs} onSubmit={refetchData} initialData={initialFilters}/>
+            <h2>{tableInformation().displayName}</h2>
+            <div class="columns">
+                <Show when={filterDefs().length > 0}>
+                    <div class="filters">
+                        <h3>Filters</h3>
+                        <div class="form-columns">
+                            <FieldsRenderer buttonText="Fetch Data" fieldDefinitions={filterDefs} onSubmit={refetchData} initialData={initialFilters}/>
+                        </div>
                     </div>
-                </div>
-            </Show>
-            <Actions actions={() => tableInformation().tableActions} type={type} />
+                </Show>
+                <Actions actions={() => tableInformation().tableActions} type={type} />
+            </div>
             <div>
-                <h4>Data</h4>
+                <h3>Data</h3>
                 <table>
                     <thead>
                         <tr>

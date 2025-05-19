@@ -31,7 +31,7 @@ export default function Actions({type, actions, value}) {
     return (
         <div>
             <Show when={actions()}>
-                <h4>Actions</h4>
+                <h3>Actions</h3>
                 <For each={actions()}>{(a) =>
                     <>
                         <button onclick={() => setRunningAction(a)}>{a.displayName}</button>

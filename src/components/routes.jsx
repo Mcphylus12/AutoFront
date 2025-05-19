@@ -5,8 +5,7 @@ export default function Routes() {
     const rawConfig = useRawConfig();
     return (
         <>
-            <a href="/">Index</a>
-            <a href="/about">About</a>
+            <a href="/">Home</a>
             <For each={rawConfig.config.routes}>{(r) =>
                 <a href={`/table/${r}`}>Table: {rawConfig.config.types[r].displayName}</a>
             }</For>

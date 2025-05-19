@@ -28,7 +28,7 @@ export default function FieldsRenderer({fieldDefinitions, onSubmit, buttonText, 
         <>
             <For each={fieldDefinitions()}>{(f) =>
                 <>
-                    <label>{f.displayName}</label><input value={filters.root[f.name]} oninput={(e) => setFilters('root', f.name, e.target.value)}/>
+                    <label>{f.displayName}:</label><input value={filters.root[f.name]} oninput={(e) => setFilters('root', f.name, e.target.value)}/>
                 </>
             }</For>
             <button onclick={() => onSubmit(filters.root)}>{buttonText}</button>

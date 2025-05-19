@@ -4,6 +4,8 @@
 
 body {
   margin: 0;
+  font-family: 'Courier New', monospace;
+  background-color: whitesmoke;
 }
 
 html, body {
@@ -15,8 +17,9 @@ html, body {
   display: flex;
   gap: 0.2rem;
   align-items: center;
-  background-color: palegreen;
+  background-color: #5d6369;
   justify-content: center;
+  
 }
 
 .nav > * {
@@ -24,16 +27,19 @@ html, body {
   padding: 1rem;
   min-width: 5rem;
   transition: background-color 0.3s;
+  color: white;
+  text-decoration: none;
 }
 
 .nav > *:hover {
-  background-color: aquamarine;
+  background-color: #2d3033;
 }
 
 .main {
-  min-width: 60rem;
+  width: 100%;
+  max-width: 80rem;
   margin: 0 auto;
-  background: whitesmoke;
+  background: lightgray;
   padding: 2rem;
 }
 
@@ -56,9 +62,14 @@ h1, h2, h3, h4, h5 {
   margin: 0;
 }
 
+h2 {
+  font-size: xx-large;
+  margin-bottom: 0;
+}
+
 h3 {
   margin-bottom: 2rem;
-  font-size: xx-large;
+  font-size: x-large;
 }
 
 h4 {
@@ -71,35 +82,56 @@ h4 {
   grid-template-columns: max-content 1fr;
   gap: 0.5rem;
   text-align: right;
+  align-items: center;
+  justify-content: right;
 }
 
 .form-columns > button {
   grid-column: span 2;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+.filters {
+  max-width: 20rem;
 }
 
-table, th, td {
-  border: 1px solid black;
-  text-align: center;
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table td, table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {background-color: #c0c0c0;}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #2d3033;
+  color: white;
 }
 
 th, td {
-  min-width: 5rem;
+  min-width: 3rem;
 }
 
 button {
   background-color: rgba(203, 203, 253, 0.103);
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   border-radius: 5px;
-  transition: background-color 0.3s;
+  transition: background-color 0.1s;
+  cursor: pointer;
+  min-width: 10rem;
 }
 
 button:hover {
-  background-color: aquamarine;
+  background-color: darkgray;
 }
 
 .modal {
@@ -120,4 +152,16 @@ button:hover {
   top: 30%;
   transform: translate(-50%, 0);
   padding: 0.5rem;
+}
+
+input {
+  padding: 8px 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
