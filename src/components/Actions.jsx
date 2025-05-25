@@ -51,9 +51,12 @@ export default function Actions({type, actions, value}) {
             </Show>
             <Show when={resultContent()}>
                 <div class="modal">
-                    <div>
-                        <h4>Success {resultContent().success}</h4>
-                        {resultContent().message}
+                    <div class="column">
+                        <h4>Action Completed</h4>
+                        <h5>Result:</h5>
+                        <div class="border">
+                            {resultContent().message}
+                        </div>
                         <button onclick={closeModal}>Close</button>
                     </div>
                 </div>

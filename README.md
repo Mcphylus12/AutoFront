@@ -6,13 +6,13 @@
 
 ## Overview
 
+*Autofront*
 
 
 ## TODOs
-- Action Modal styling
-- Sorting
-- Home page
 - Swagger yaml
+- Home page
 - Documentation
 - Tests
 - Test page that calls config endpoint and then tests data endpoints
+- Sorting

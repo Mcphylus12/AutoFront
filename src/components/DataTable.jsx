@@ -16,11 +16,11 @@ const queryTableData = async ({type, filters, basePath}) => {
 
 export default function DataTable({type, initialFilters, setQueryParam})
 {
-    const basePath = useBaseUrl();
     const tableInformation = () => useConfig(type());
     const columns = () => tableInformation().properties.filter(p => p.summary);
     const filterDefs = () => tableInformation().properties.filter(p => p.filterable);
-
+    
+    const basePath = useBaseUrl();
     const resourceParams = () => ({type: type(), filters: initialFilters(), basePath: basePath});
     const [tableData, { refetch }] = createResource(resourceParams, queryTableData);
 
