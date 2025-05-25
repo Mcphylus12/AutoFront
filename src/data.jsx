@@ -24,8 +24,32 @@ export const secondModelData = [
     }
 ]
 
+export const fields = {
+    testActionField: [
+        {
+            name: "hello",
+            value: "hello"
+        },
+        {
+            name: "Second Option",
+            value: "second"
+        }
+    ]
+}
+
 export const configData = {
-    routes: ["test"],
+    routes: [
+        {
+            type: "table",
+            tableKey: "test"
+        },
+        {
+            type: "frame",
+            name: "ifrmaetest",
+            displayName: "Iframe Test",
+            url: "https://www.youtube.com/embed/aJoo79OwZEI"
+        }
+    ],
     types: {
         test: {
             displayName: "Test",
@@ -78,6 +102,10 @@ export const configData = {
                             name: "testActionField",
                             displayName: "Test Action Field",
                             preset: "testActionPreset"
+                        },
+                        {
+                            name: "free",
+                            displayName: "Free Action Field",
                         },
                     ]
                 }

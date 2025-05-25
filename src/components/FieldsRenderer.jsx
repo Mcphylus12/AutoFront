@@ -1,5 +1,6 @@
 import { createEffect, For } from 'solid-js'
 import { createStore } from 'solid-js/store'
+import PresetField from './PresetField';
 
 export default function FieldsRenderer({fieldDefinitions, onSubmit, buttonText, initialData}) {
     const startFilters = () => 
@@ -28,7 +29,11 @@ export default function FieldsRenderer({fieldDefinitions, onSubmit, buttonText, 
         <>
             <For each={fieldDefinitions()}>{(f) =>
                 <>
-                    <label>{f.displayName}:</label><input value={filters.root[f.name]} oninput={(e) => setFilters('root', f.name, e.target.value)}/>
+                    <Show when={f.preset} fallback={
+                        <><label>{f.displayName}:</label><input value={filters.root[f.name]} oninput={(e) => setFilters('root', f.name, e.target.value)}/></>
+                    }>
+                        <PresetField field={f} value={filters.root[f.name]} oninput={(e) => setFilters('root', f.name, e.target.value)}/>
+                    </Show>                
                 </>
             }</For>
             <button onclick={() => onSubmit(filters.root)}>{buttonText}</button>

@@ -154,7 +154,7 @@ button:hover {
   padding: 0.5rem;
 }
 
-input {
+input, select {
   padding: 8px 10px;
   display: inline-block;
   border: 1px solid #ccc;

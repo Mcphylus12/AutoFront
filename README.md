@@ -9,11 +9,10 @@
 
 
 ## TODOs
-- Documentation
-- Styling
-- Tests
-- Test page that calls config endpoint and then tests data endpoints
+- Action Modal styling
 - Sorting
-- Custom pages that load iframes
 - Home page
 - Swagger yaml
+- Documentation
+- Tests
+- Test page that calls config endpoint and then tests data endpoints

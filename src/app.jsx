@@ -17,9 +17,7 @@ export default function App() {
               <div class="nav">
                 <Routes />
               </div>
-              <div class="main">
-                <Suspense>{props.children}</Suspense>
-              </div>
+              <Suspense>{props.children}</Suspense>
             </>
           </ConfigProvider>
         </MetaProvider>
