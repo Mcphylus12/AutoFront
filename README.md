@@ -13,6 +13,7 @@
 - Swagger yaml
 - Home page
 - Documentation
+- Pagination
 - Tests
 - Test page that calls config endpoint and then tests data endpoints
 - Sorting

@@ -34,49 +34,105 @@ paths:
       parameters:
         - name: type
           in: path
-          description: ID of order that needs to be fetched
+          description: Type of object the action is for.
           required: true
           schema:
             type: string
         - name: actionName
           in: path
-          description: ID of order that needs to be fetched
+          description: Name of the action to execute
           required: true
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fields:
+                  type: object
+                context:
+                  type: object
+      responses:
+        '200':
+          description: Action completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+
   /details/{type}/{id}:
     get:
       parameters:
         - name: type
           in: path
-          description: ID of order that needs to be fetched
+          description: Type of object to fetch
           required: true
           schema:
             type: string
         - name: id
           in: path
-          description: ID of order that needs to be fetched
+          description: Id of object to fetch
           required: true
           schema:
             type: string
+      responses:
+        '200':
+          description: Succesfully retrieved full object
+          content:
+            application/json:
+              schema:
+                type: object
   /table/{type}:
-    get:
+    post:
       parameters:
         - name: type
           in: path
-          description: ID of order that needs to be fetched
+          description: Type of object to fetch
           required: true
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filters:
+                  type: object
+      responses:
+        '200':
+          description: Succesfully retrieved table data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
   /field/{fieldName}:
     get:
       parameters:
         - name: fieldName
           in: path
-          description: ID of order that needs to be fetched
+          description: Name of the field enumeration to fetch
           required: true
           schema:
             type: string
+      responses:
+        '200':
+          description: Succesfully retrieved field options
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
 components:
   schemas:
     Actions:
@@ -163,6 +219,3 @@ components:
           $ref: '#/components/schemas/Actions'
         tableActions:
           $ref: '#/components/schemas/Actions'
-
-        
-      
