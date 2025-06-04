@@ -8,7 +8,7 @@ export async function POST({params, request}) {
 
         const data = testData;
 
-        return data.filter(d => !filters.name || filters.name == d.name);
+        return toPagination(data.filter(d => !filters.name || filters.name == d.name));
     }
 
     if (params.type == "secondmodel")
@@ -18,8 +18,29 @@ export async function POST({params, request}) {
 
         const data = secondModelData;
 
-        return data.filter(d => !filters.id || filters.id == d.id);
+        return toPagination(data.filter(d => !filters.id || filters.id == d.id));
     }
 
     return [];
+}
+
+function toPagination(data)
+{
+    // return {
+    //     items: data,
+    //     pagination: {
+    //         type: 'pages',
+    //         numPages: 10,
+    //         currentPage: 5
+    //     }
+    // }
+    
+    return {
+        items: data,
+        pagination: {
+            type: 'nextprev',
+            next: 'nexting',
+            prev: 'prevving'
+        }
+    }
 }

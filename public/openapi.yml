@@ -164,6 +164,15 @@ paths:
             schema:
               type: object
               properties:
+                pagination:
+                  type: object
+                  properties:
+                    page:
+                      type: integer
+                      description: the target page to laod data for if the data is 'page' pagination
+                    cursor:
+                      type: string
+                      description: the opaque cursor to load data for if the is 'nextprev' pagination
                 filters:
                   description: this will be a object of the same type as the data being displayed in the table. It could be populated with any properties configured as `filterable` in the config with the filter input as a string against the property. Any properties marked as `filterable` are expected to be handled but it is up to the server how. EG exact text match vs partial or something else entirely
                   type: object
@@ -173,9 +182,30 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
+                type: object
+                properties:
+                  pagination:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        description: one of 'nextprev' or 'pages' depending on whether the data supports fully paged pagination or just next/prev like cursors
+                      numPages:
+                        type: integer
+                        description: optional for 'type' == 'pages'. number of available pages
+                      currentPage:
+                        type: integer
+                        description: required for 'type' == 'pages'. current page the data is for
+                      next:
+                        type: string
+                        description: required for 'type' == 'nextprev'. an opaque string to go back to the api if the next page is desired 
+                      prev:
+                        type: string
+                        description: optional for 'type' == 'nextprev'. an opaque string to go back to the api if the previous page is desired. previous button will be hidden if this isnt populated 
+                  items:
+                    type: array
+                    items:
+                      type: object
   /field/{fieldName}:
     get:
       summary: retrieve the possible values for a action field.

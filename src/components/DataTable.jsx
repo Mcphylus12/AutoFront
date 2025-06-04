@@ -1,8 +1,9 @@
-import { createEffect, createResource, createSignal, For, Match, onMount, Show } from "solid-js";
+import { createEffect, createResource, createSignal, For, Match, onMount, Show, Suspense } from "solid-js";
 import { useBaseUrl, useConfig } from "./ConfigProvider";
 import PropertyRenderer from "./PropertyRenderer";
 import Actions from "./Actions";
 import FieldsRenderer from "./FieldsRenderer";
+import Pager from "./Pager";
 
 const queryTableData = async ({type, filters, basePath}) => {
     const response = await fetch(`${basePath}/table/${type}`, {
@@ -47,27 +48,30 @@ export default function DataTable({type, initialFilters, setQueryParam})
                 <Actions actions={() => tableInformation().tableActions} type={type} />
             </div>
             <div>
-                <h3>Data</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <For each={columns()}>{(prop) =>
-                                <th>{prop.displayName}</th>
-                            }</For>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <For each={tableData()}>{(row) =>
+                <Suspense>
+                    <h3>Data</h3>
+                    <table>
+                        <thead>
                             <tr>
                                 <For each={columns()}>{(prop) =>
-                                    <td>
-                                        <PropertyRenderer linkData={prop.link} value={() => row[prop.name]} />
-                                    </td>
+                                    <th>{prop.displayName}</th>
                                 }</For>
                             </tr>
-                        }</For> 
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <For each={tableData()?.items}>{(row) =>
+                                <tr>
+                                    <For each={columns()}>{(prop) =>
+                                        <td>
+                                            <PropertyRenderer linkData={prop.link} value={() => row[prop.name]} />
+                                        </td>
+                                    }</For>
+                                </tr>
+                            }</For> 
+                        </tbody>
+                    </table>
+                    <Pager pagination={() => tableData()?.pagination} goto={(data) => {console.log(JSON.stringify(data))}}/>
+                </Suspense>
             </div>
         </>
     )
