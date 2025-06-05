@@ -180,3 +180,26 @@ input, select {
   border: 1px solid black;
   padding: .5rem;
 }
+
+.flex-h-center {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.links > * {
+  box-sizing: border-box;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.1s;
+  padding: 0.2rem;
+}
+
+.links > .active {
+  border: 1px solid black;
+}
+
+.links > *:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.2);
+}

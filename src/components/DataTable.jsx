@@ -1,14 +1,15 @@
-import { createEffect, createResource, createSignal, For, Match, onMount, Show, Suspense } from "solid-js";
+import { batch, createEffect, createResource, createSignal, For, Match, onMount, Show, Suspense } from "solid-js";
 import { useBaseUrl, useConfig } from "./ConfigProvider";
 import PropertyRenderer from "./PropertyRenderer";
 import Actions from "./Actions";
 import FieldsRenderer from "./FieldsRenderer";
 import Pager from "./Pager";
 
-const queryTableData = async ({type, filters, basePath}) => {
+const queryTableData = async ({type, filters, pagination, basePath}) => {
     const response = await fetch(`${basePath}/table/${type}`, {
         method: "POST",
         body: JSON.stringify({
+            pagination: pagination,
             filters: filters
         })
     });
@@ -17,12 +18,22 @@ const queryTableData = async ({type, filters, basePath}) => {
 
 export default function DataTable({type, initialFilters, setQueryParam})
 {
+    const [pagination, setPagination] = createSignal(null);
+    const [currentType, setCurrentType] = createSignal(type());
     const tableInformation = () => useConfig(type());
     const columns = () => tableInformation().properties.filter(p => p.summary);
     const filterDefs = () => tableInformation().properties.filter(p => p.filterable);
     
+    createEffect(() => {
+        const newType = type();
+        batch(() => {
+            setCurrentType(newType)
+            setPagination(null);
+        })
+    });
+
     const basePath = useBaseUrl();
-    const resourceParams = () => ({type: type(), filters: initialFilters(), basePath: basePath});
+    const resourceParams = () => ({type: currentType(), filters: initialFilters(), pagination: pagination(), basePath: basePath});
     const [tableData, { refetch }] = createResource(resourceParams, queryTableData);
 
     const refetchData = (f) => {
@@ -70,7 +81,7 @@ export default function DataTable({type, initialFilters, setQueryParam})
                             }</For> 
                         </tbody>
                     </table>
-                    <Pager pagination={() => tableData()?.pagination} goto={(data) => {console.log(JSON.stringify(data))}}/>
+                    <Pager pagination={() => tableData()?.pagination} goto={(data) => setPagination(data)}/>
                 </Suspense>
             </div>
         </>

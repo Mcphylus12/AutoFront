@@ -4,11 +4,11 @@ export default function Pager({pagination, goto}) {
 
     const pages = () => range(pagination()?.currentPage, pagination()?.numPages);
     return (
-        <>
+        <div class="flex-h-center links">
             <Switch>
                 <Match when={pagination()?.type == 'pages'}>
-                    <div>
-                        <Show when={pagination()?.currentPage > 0}>
+                    <>
+                        <Show when={pagination()?.currentPage > 1}>
                             <div onClick={() => goto({page: pagination()?.currentPage - 1})}>Prev</div>
                         </Show>
                         <For each={pages()}>{(pageNum, i) => 
@@ -17,14 +17,14 @@ export default function Pager({pagination, goto}) {
                         <Show when={pagination()?.currentPage < pagination()?.numPages}>
                             <div onClick={() => goto({page: pagination()?.currentPage + 1})}>Next</div>
                         </Show>
-                    </div>
+                    </>
                 </Match>
                 <Match when={pagination()?.type == 'nextprev'}>
                     <div onClick={() => goto({cursor: pagination()?.prev})}>Prev</div>
                     <div onClick={() => goto({cursor: pagination()?.next})}>Next</div>
                 </Match>
             </Switch>
-        </>
+        </div>
     )
 }
 
