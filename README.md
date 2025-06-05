@@ -10,7 +10,6 @@
 
 
 ## TODOs
-- Pagination (WIP)
 - Home page
 - Documentation
 - Tests
