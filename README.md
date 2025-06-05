@@ -10,9 +10,9 @@
 
 
 ## TODOs
+- Sorting
 - Home page
 - Documentation
 - Tests
 - Test page that calls config endpoint and then tests data endpoints
-- Sorting
 - Nagative Case handling
