@@ -10,7 +10,6 @@
 
 
 ## TODOs
-- Sorting
 - Home page
 - Documentation
 - Tests

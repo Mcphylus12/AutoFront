@@ -5,12 +5,13 @@ import Actions from "./Actions";
 import FieldsRenderer from "./FieldsRenderer";
 import Pager from "./Pager";
 
-const queryTableData = async ({type, filters, pagination, basePath}) => {
+const queryTableData = async ({type, filters, pagination, basePath, sorts}) => {
     const response = await fetch(`${basePath}/table/${type}`, {
         method: "POST",
         body: JSON.stringify({
             pagination: pagination,
-            filters: filters
+            filters: filters,
+            sorts: sorts
         })
     });
     return response.json();
@@ -19,6 +20,7 @@ const queryTableData = async ({type, filters, pagination, basePath}) => {
 export default function DataTable({type, initialFilters, setQueryParam})
 {
     const [pagination, setPagination] = createSignal(null);
+    const [sorts, setSorts] = createSignal({});
     const [currentType, setCurrentType] = createSignal(type());
     const tableInformation = () => useConfig(type());
     const columns = () => tableInformation().properties.filter(p => p.summary);
@@ -26,14 +28,17 @@ export default function DataTable({type, initialFilters, setQueryParam})
     
     createEffect(() => {
         const newType = type();
-        batch(() => {
-            setCurrentType(newType)
-            setPagination(null);
-        })
+        if (newType !== currentType()) {
+            batch(() => {
+                setCurrentType(newType)
+                setPagination(null);
+                setSorts({});
+            })
+        }
     });
 
     const basePath = useBaseUrl();
-    const resourceParams = () => ({type: currentType(), filters: initialFilters(), pagination: pagination(), basePath: basePath});
+    const resourceParams = () => ({type: currentType(), sorts: sorts(), filters: initialFilters(), pagination: pagination(), basePath: basePath});
     const [tableData, { refetch }] = createResource(resourceParams, queryTableData);
 
     const refetchData = (f) => {
@@ -42,6 +47,21 @@ export default function DataTable({type, initialFilters, setQueryParam})
         setTimeout(() => {
             refetch();
         }, 0);
+    }
+
+    const updateSort = (column) => {
+        if (sorts().column == column.name)
+        {
+            setSorts(prev => ({
+                ...prev,
+                value: (prev.value + 1) % 3
+            }));
+        } else {
+            setSorts({
+                column: column.name,
+                value: 1
+            }); 
+        }
     }
     
     return (
@@ -65,7 +85,14 @@ export default function DataTable({type, initialFilters, setQueryParam})
                         <thead>
                             <tr>
                                 <For each={columns()}>{(prop) =>
-                                    <th>{prop.displayName}</th>
+                                    <th>{prop.displayName} 
+                                    <Show when={prop.sortable}>
+                                        <span onclick={() => updateSort(prop)} class="sorter">
+                                            <div class={sorts()?.column == prop.name && sorts().value == 1 ? "active up" : "up"}></div>
+                                            <div class={sorts()?.column == prop.name && sorts().value == 2 ? "active down" : "down"}></div>
+                                        </span>
+                                    </Show>
+                                    </th>
                                 }</For>
                             </tr>
                         </thead>

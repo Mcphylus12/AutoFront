@@ -58,6 +58,7 @@ export const configData = {
                     name: "id",
                     displayName: "ID",
                     summary: true,
+                    sortable: true,
                     link: {
                         type: "details",
                         dataType: "test"

@@ -203,3 +203,37 @@ input, select {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.2);
 }
+
+.sorter {
+  width: 10px;
+  height: 15px;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  cursor: pointer;
+}
+
+.sorter > * {
+  width: 0;
+  height: 0;
+  box-sizing: content-box;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+}
+
+.sorter .up {
+  border-bottom: 6px solid gray;
+}
+
+.sorter .down {
+  border-top: 6px solid gray;
+}
+
+.sorter .up.active {
+  border-bottom: 6px solid white;
+}
+
+.sorter .down.active {
+  border-top: 6px solid white;
+}
