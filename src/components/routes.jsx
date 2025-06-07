@@ -5,6 +5,7 @@ export default function Routes() {
     const rawConfig = useRawConfig();
     return (
         <>
+            
             <a href="/">Home</a>
             <For each={rawConfig.config.routes}>{(r) =>
             <Switch>

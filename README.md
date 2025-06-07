@@ -9,9 +9,11 @@
 *Autofront*
 
 
-## TODOs
+## TODOss
 - Home page
 - Documentation
+- Update Open Api Spec
 - Tests
 - Test page that calls config endpoint and then tests data endpoints
 - Nagative Case handling
+- Exploratory
