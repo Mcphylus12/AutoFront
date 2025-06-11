@@ -8,9 +8,12 @@
 
 - `npm run build` - builds a serverless frontend app that can be deployed the same way any SPA can be
 
-## TODOss
+## TODOs
 - Home page / Documentation
 - Update Open Api Spec
-- Nagative Case handling
 - Exploratory - including npm run build and running in an nginx docker container
+
+
+## For later
+- Negative Case handling
 - OIDC support. set JWT requirements for types and actions
