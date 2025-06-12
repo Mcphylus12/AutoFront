@@ -10,24 +10,34 @@
     <div id="app">
         <div class="main">
             <h1>Welcome to Autofront</h1>
+            
+            <h3>Please read this top to bottom before going any further.</h3>
 
             <section>
                 <h2>What is Autofront</h2>
+                <p>
+                    Autofront is a dynamic web UI that removes the need for a frontend development skillset when creating simple applications to present business data and execute business actions.
+                    If that sounds a bit vague its because when configured correctly it can cover a lot of use cases. Autofront interacts with a "data server" you build to source data and handle action executions. In this case "data server"
+                    just refers to an HTTP server that conforms to the OpenApi Specification found <a href="openapi.yml" target="_blank">here</a>.
+                 </p>
+
+                <h3>Examples</h3>
                 <ul>
-                    <li>0-60 back office applications for managing your data</li>
-                    <li>Accelarate full stack development for teams that lack frontend experience</li>
-                    <li>No lock in - The data api made for this tool can easily be transitioned later on to drive a bespoke front end </li>
+                    <li>Build back office applications without needing to worry about designs or the frontend tech stack</li>
+                    <li>Get to a quick full stack MVP without the hassle of building a UI</li>
+                    <li>There are probably more but i cant think of them while writing this</li>
                 </ul>
             </section>
 
             <section>
                 <h2>Features</h2>
                 <ul>
-                    <li>Dynamic Data display of business data</li>
-                    <li>Triggering of Business flows</li>
-                    <li>Themeable</li>
-                    <li>Serverless and self contained</li>
-                    <li>OIDC support - all security is passed through the app and handled by the backend so <b>you</b> decide what people can and cant see</li>
+                    <li><b>Dynamic Data display of business data</b> - You define the schema of your data in the config endpoint and then implement the matching data endpoints and Autofront will display tabulated data with paging, filtering and sorting all setup in the UI (your data server still needs handled these when retrieving the data itself)</li>
+                    <li><b>Triggering of Business flows</b> - Business functions can be defined per object or per type and call straight into the data server so you can implement them however you want</li>
+                    <li><b>Themeable</b> - The entire application is built on simple semantic HTML with a minimal number of classes. Its all loaded from the app.css file so swap that out and you can be running your own skin</li>
+                    <li><b>Serverless and self contained</b> - Autofront is a SPA written in solidJS and is purely a frontend system. No server needed apart from the one you make to provide the data</li>
+                    <li><b>No lock in</b> - The specification Autofront uses to discover schemas and work with a data server is very thin meaning if you ever wanted to move to your own bespoke frontend you wouldnt need to adjust the data server at all.</li>
+                    <li><b>[TODO]OIDC support</b> - The aim will be to support OIDC and pass the token straight to the data server so no security would be handled in Autofront itself and you can have confidence things are locked down. When this is in the config will support defined JWT assertions so the UI can hide pages, data and actions and match the security youve added in the server.</li>
                 </ul>
             </section>
             
@@ -35,21 +45,21 @@
             <section>
                 <h2>What to do next</h2>
                 <ul>
-                    <li>Defining Config</li>
-                    <li>Routes</li>
-                    <li>Data</li>
-                    <li>Actions</li>
-                    <li>Field Presets</li>
-                    <li>Security</li>
+                    <li><b>Create a data server</b> - The first thing to setup is your data server. This is whatever HTTP server you want to be using it doesnt matter to Autofront. Once its running youll want to update the bootstrap.json file with the location of it so the app knows where the data server is located. Automating this as part of a deployment process is a sensible solution or it can be replaced inline on a running installation for somethign simpler</li>
+                    <li><b>Defining Config</b> - The first and most complex endpoint to wrap your head around is the config endpoint. This is essentially Autofronts discovery endpoint that it uses to understand what data exists and what shape it is. refer to the open api spec <a href="openapi.yml" target="_blank">here</a> for details</li>
+                    <li><b>Data</b> - Next for each type youve made in the config youll want to support that datatype being queried through the table and details endpoints.(make sure your data server can handle the filtering and sorting youve set in the config endpoint)</li>
+                    <li><b>Actions</b> - Similar for data youll need to setup an action andpoint that can handle all action that are defined in the config endpoint.</li>
+                    <li><b>Field Presets</b> - Action fields are by default free text but can be set to a preset that will cause a fetch to the data server to populate a drop down of preset values if you want a more guided field when running an action. The preset endpoint in the data server will need to handle requests for all action fields that are marked as a preset.</li>
                 </ul>
             </section>
 
             <section>
                 <h2>Customisation</h2>
-                <ul>
-                    <li>Custom Homepage (+ keeping this as a docs page if you want)</li>
-                    <li>Custom Pages with Iframes</li>
-                </ul>
+
+                On top of the previous mentioned skinning and the main functionality of displaying data. The routes in the config can be set to create pages that load iframes. This is Autofronts way of facilitating custom content without needing to leave the site.
+                <br />
+                <br />
+                This homepage itself is loaded through an iframe so when your finished with it you can swap it out for something else and give your app its own custom landing page. If you do this it may be worth renaming this document to somethig like docs.html and adding it as an iframe route so it can still be viewed.
             </section>
         </div>
     </div>

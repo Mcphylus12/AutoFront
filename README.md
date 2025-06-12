@@ -9,11 +9,12 @@
 - `npm run build` - builds a serverless frontend app that can be deployed the same way any SPA can be
 
 ## TODOs
-- Home page / Documentation
 - Update Open Api Spec
 - Exploratory - including npm run build and running in an nginx docker container
+- CSS simplification
+- Docs 2nd parse
 
 
 ## For later
-- Negative Case handling
-- OIDC support. set JWT requirements for types and actions
+- Negative Case handling (Use null object pattern in data providers to avoid)
+- OIDC support. set JWT requirements for types and actions (do security in a reverse proxy of some sort)
