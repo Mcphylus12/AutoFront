@@ -42,7 +42,7 @@ export default function Actions({type, actions, value}) {
                 <div class="modal">
                     <div>
                         <h4>{runningAction().displayName}</h4>
-                        <div class="form-columns">
+                        <div class="form">
                             <FieldsRenderer buttonText="Submit Action" fieldDefinitions={() => runningAction().fields} onSubmit={submitAction}/>
                             <button onclick={closeModal}>Close</button>
                         </div>

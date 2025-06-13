@@ -10,7 +10,6 @@
 
 ## TODOs
 - Update Open Api Spec
-- CSS simplification
 - Docs 2nd parse
 
 

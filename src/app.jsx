@@ -11,7 +11,7 @@ export default function App() {
       root={props => (
         <MetaProvider>
           <Title>SolidStart - Basic</Title>
-          <Link rel="stylesheet" href="app.css" />
+          <Link rel="stylesheet" href="/app.css" />
           <ConfigProvider>
             <>
               <nav>

@@ -17,7 +17,7 @@ export default function DataDetails({type, id}) {
         <>
             <h3>{tableInformation().displayName}</h3>
             <Suspense fallback={<div>Loading...</div>}>
-                <div class="form-columns">
+                <div class="form">
                     <For each={tableInformation().properties}>{(prop) =>
                         <>
                             <div>{prop.displayName}</div>

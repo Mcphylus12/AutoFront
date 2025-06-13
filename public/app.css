@@ -264,7 +264,20 @@ with optionally one of the inner divs having the "active" class if sorting is ac
 }
 
 
-.form-columns {
+/*
+This class is just a simple grid to do flexible form fields when the label will have dynamic length. Used when displaying fields for actions and filtering. feel free to change but its isnt really theming.
+
+Structure is
+<div class="form">
+  <div class="up"></div> elements label -> input -> label -> input to form the grid
+  <div class="down"></div>
+
+  <button></button> every use ends in a button to submit the values
+</div>
+
+with optionally one of the inner divs having the "active" class if sorting is active in that direction for the column
+*/
+.form {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 0.5rem;
@@ -273,15 +286,20 @@ with optionally one of the inner divs having the "active" class if sorting is ac
   justify-content: right;
 }
 
-.form-columns > button {
+.form > button {
   grid-column: span 2;
 }
 
-.filters {
-  max-width: 20rem;
-}
 
-.columns {
+/*
+the main element in the tabular display and single object display have table-page and details-page as classes respectively. 
+By default there is some styling for table-page but none for details-page its there to hang custom styles off
+*/
+.table-page > div:first-of-type {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.table-page > div:first-of-type > div:first-of-type {
+   max-width: 20rem;
 }

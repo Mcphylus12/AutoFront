@@ -71,7 +71,7 @@ export default function DataTable({type, initialFilters, setQueryParam})
                 <Show when={filterDefs().length > 0}>
                     <div class="filters">
                         <h3>Filters</h3>
-                        <div class="form-columns">
+                        <div class="form">
                             <FieldsRenderer buttonText="Fetch Data" fieldDefinitions={filterDefs} onSubmit={refetchData} initialData={initialFilters}/>
                         </div>
                     </div>

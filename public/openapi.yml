@@ -48,6 +48,7 @@ paths:
                       displayName: Id
                       summary: true
                       filterable: true
+                      sortable: true
                       link: 
                         type: details
                         dataType: exampleObject
@@ -173,6 +174,17 @@ paths:
                     cursor:
                       type: string
                       description: the opaque cursor to load data for if the is 'nextprev' pagination
+                sorts:
+                  type: object
+                  description: defines the current sorted column with direction
+                  properties:
+                    column:
+                      type: string
+                      description: the column being sorted 
+                    values:
+                      type: integer
+                      description: 1 or 2 depending on ASC or DESC sorting
+                      
                 filters:
                   description: this will be a object of the same type as the data being displayed in the table. It could be populated with any properties configured as `filterable` in the config with the filter input as a string against the property. Any properties marked as `filterable` are expected to be handled but it is up to the server how. EG exact text match vs partial or something else entirely
                   type: object
@@ -325,6 +337,9 @@ components:
                         type: boolean
                       filterable:
                         description: should a filter be displayed for the property. The filters are displayed on the table page so usually only `summary` fields will be filterable but its doesnt have to be the case
+                        type: boolean
+                      sortable:
+                        description: should sorting arrows be set in the table header for this property. should only be set for summary fields
                         type: boolean
                       link:
                         description: should the property function as a cross link to another page
