@@ -4,7 +4,7 @@ export default function Pager({pagination, goto}) {
 
     const pages = () => range(pagination()?.currentPage, pagination()?.numPages);
     return (
-        <div class="flex-h-center links">
+        <div class="flex-h-center pagination">
             <Switch>
                 <Match when={pagination()?.type == 'pages'}>
                     <>

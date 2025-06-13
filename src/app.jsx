@@ -14,9 +14,9 @@ export default function App() {
           <Link rel="stylesheet" href="app.css" />
           <ConfigProvider>
             <>
-              <div class="nav">
+              <nav>
                 <Routes />
-              </div>
+              </nav>
               <Suspense>{props.children}</Suspense>
             </>
           </ConfigProvider>

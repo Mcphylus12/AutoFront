@@ -6,8 +6,8 @@ export default function TablePage() {
     const searchParams = useSearchParams();
 
     return (
-        <div class="main">
+        <main>
             <DataTable type={() => params.type} initialFilters={() => searchParams[0]} setQueryParam={searchParams[1]}/>
-        </div>
+        </main>
     );
 }

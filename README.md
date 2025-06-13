@@ -9,7 +9,6 @@
 - `npm run build` - builds a serverless frontend app that can be deployed the same way any SPA can be
 
 ## TODOs
-- Handle no config endpoint available
 - Update Open Api Spec
 - CSS simplification
 - Docs 2nd parse

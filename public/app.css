@@ -12,7 +12,7 @@ html, body {
   height: 100%;
 }
 
-.nav {
+nav {
   min-height: 3rem;
   display: flex;
   gap: 0.2rem;
@@ -22,7 +22,7 @@ html, body {
   
 }
 
-.nav > * {
+nav > * {
   text-align: center;
   padding: 1rem;
   min-width: 5rem;
@@ -31,11 +31,11 @@ html, body {
   text-decoration: none;
 }
 
-.nav > *:hover {
+nav > *:hover {
   background-color: #2d3033;
 }
 
-.main {
+main {
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
@@ -43,19 +43,8 @@ html, body {
   padding: 2rem;
 }
 
-.main > * {
+main > * {
   margin-bottom: 3rem;
-}
-
-#app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-}
-
-#app > *:last-child {
-  flex: 1 1;
 }
 
 h1, h2, h3, h4, h5 {
@@ -75,23 +64,6 @@ h3 {
 h4 {
   margin-bottom: 1rem;
   font-size: large;
-}
-
-.form-columns {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.5rem;
-  text-align: right;
-  align-items: center;
-  justify-content: right;
-}
-
-.form-columns > button {
-  grid-column: span 2;
-}
-
-.filters {
-  max-width: 20rem;
 }
 
 table {
@@ -134,6 +106,34 @@ button:hover {
   background-color: darkgray;
 }
 
+input, select {
+  padding: 8px 10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* App is what solid mounts on. styling wise its a top evel div directly under the body.*/
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+#app > *:last-child {
+  flex: 1 1;
+}
+
+/*
+styling for modals used for action execution
+
+Structure is
+<div class="modal">
+    <div></div> This inner div is the popup itself and depending on the speciific modal may have other classes
+     relating to other sections of this stylesheet eg action-result
+</div>
+*/
 .modal {
   position: fixed;
   top: 0;
@@ -157,37 +157,50 @@ button:hover {
   box-shadow: #3a3e42 3px 3px 4px;
 }
 
-input, select {
-  padding: 8px 10px;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+/*
+action-result handles styling the modal that display the result of running an action
 
-.columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
+Structure is
+<div class="action-result">
+    <h4>Action Completed</h4>
+    <h5>Result:</h5>
+    <pre>{message}</pre>
+    <button onclick={closeModal}>Close</button>
+</div>
 
-.column {
+with optionally one of the inner divs having the "active" class if that page is the one thats loaded
+*/
+.action-result {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
 }
 
-.border {
+.action-result > pre {
   border: 1px solid black;
   padding: .5rem;
 }
 
-.flex-h-center {
+/*
+Pagination styling covers rendering of the paging controls underneath a table 
+
+Structure is
+<div class="pagination">
+  <div>Next</div>
+  <div>{Page number}</div>only present if paging supports direct navigation to specific pages  
+  <div>Prev</div>  
+</div>
+
+with optionally one of the inner divs having the "active" class if that page is the one thats loaded
+*/
+.pagination {
   display: flex;
   gap: 0.5rem;
   justify-content: center;
 }
 
-.links > * {
+.pagination > * {
   box-sizing: border-box;
   cursor: pointer;
   background: transparent;
@@ -195,14 +208,26 @@ input, select {
   padding: 0.2rem;
 }
 
-.links > .active {
+.pagination > .active {
   border: 1px solid black;
 }
 
-.links > *:hover {
+.pagination > *:hover {
   cursor: pointer;
   background: rgba(0, 0, 0, 0.2);
 }
+
+/*
+The sort styling covers the creation of the up/down arrow that appears in column headers if the column is sortable
+
+Structure is
+<div class="sorter">
+  <div class="up"></div>
+  <div class="down"></div>
+</div>
+
+with optionally one of the inner divs having the "active" class if sorting is active in that direction for the column
+*/
 
 .sorter {
   width: 10px;
@@ -236,4 +261,27 @@ input, select {
 
 .sorter .down.active {
   border-top: 6px solid white;
+}
+
+
+.form-columns {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem;
+  text-align: right;
+  align-items: center;
+  justify-content: right;
+}
+
+.form-columns > button {
+  grid-column: span 2;
+}
+
+.filters {
+  max-width: 20rem;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

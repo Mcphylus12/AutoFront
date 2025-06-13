@@ -5,8 +5,8 @@ export default function TablePage() {
     const params = useParams();
 
     return (
-        <div class="main">
+        <main>
             <DataDetails id={() => params.id} type={() => params.type}/>
-        </div>
+        </main>
     );
 }
