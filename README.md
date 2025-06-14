@@ -1,5 +1,7 @@
 ## Overview
 
+Main documentation is in ./public/home.html
+
 ## Dev
 
 - `npm run dev` for hot reloading with test data
