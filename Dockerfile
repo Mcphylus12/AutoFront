@@ -13,7 +13,7 @@ COPY jsconfig.json jsconfig.json
 RUN npm run build
 
 
-from nginx as final
+from nginx:1.29.1-alpine3.22-slim as final
 expose 8080
 
 workdir /usr/share/nginx/wwwroot
